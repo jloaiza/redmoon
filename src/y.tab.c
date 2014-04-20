@@ -1774,8 +1774,8 @@ int getErrorLineNumber()
 
 void startAnalyzer()
 {
-    yyin = fopen("/root/Desktop/progra/entrada", "r");
-    yyout = fopen("/root/Desktop/progra/errores", "w");
+    yyin = fopen("/root/Desktop/redmoon/src/entrada", "r");
+    yyout = fopen("/root/Desktop/redmoon/src/errores", "w");
     if((yyin == NULL) || (yyout == NULL))
     {
          printf("Ha ocurrido un error en la carga del archivo para escritura o lectura.");
