@@ -1,0 +1,1466 @@
+Nonterminals useless in grammar
+
+   DeclaracionComentario
+
+
+Terminals unused in grammar
+
+   COMENTARIO
+
+
+Rules useless in grammar
+
+   56 DeclaracionComentario: '/' COMENTARIO '*'
+
+
+Estado 28 conflictos: 1 reducción(ones)/reducción(ones)
+Estado 80 conflictos: 1 desplazamiento(s)/reducción(ones)
+Estado 112 conflictos: 1 desplazamiento(s)/reducción(ones)
+
+
+Gramática
+
+    0 $accept: Programa $end
+
+    1 Programa: ListaVariables ListaFunciones ListaDeclaraciones
+    2         | error NEWLINE
+
+    3 ListaVariables: DeclaracionDocumentacion ListaVariablesPrima
+    4               | ListaVariablesPrima
+
+    5 ListaVariablesPrima: ListaVariables DeclaracionVariable
+    6                    | DeclaracionVariable
+
+    7 ListaFunciones: DeclaracionDocumentacion FUNCION ID '(' ID ')' '{' ListaVariables DeclaracionAsignacion RETORNAR ID '}'
+    8               | FUNCION ID '(' ID ')' '{' ListaVariables DeclaracionAsignacion RETORNAR ID '}'
+
+    9 DeclaracionVariable: DECLARAR ID NEWLINE
+
+   10 ListaDeclaraciones: ListaDeclaraciones Declaracion
+   11                   | Declaracion
+
+   12 ListaDeclaracionesCondicionadas: Declaracion
+   13                                | '{' ListaDeclaraciones '}'
+
+   14 Declaracion: DeclaracionPrima NEWLINE
+
+   15 DeclaracionPrima: DeclaracionAsignacion
+   16                 | DeclaracionSeleccion
+   17                 | DeclaracionIteracion
+   18                 | DeclaracionEtiqueta
+   19                 | DeclaracionSaltoEtiqueta
+   20                 | DeclaracionImprimir
+   21                 | DeclaracionLeerCaracterDePantalla
+
+   22 DeclaracionAsignacion: ID '=' Expresion NEWLINE
+
+   23 ExpresionCondicion: Expresion
+   24                   | BOOL
+
+   25 Expresion: ExpresionSuma OperadorRelacional ExpresionSuma
+   26          | ExpresionSuma
+
+   27 ExpresionSuma: ExpresionSuma OperadorSuma Termino
+   28              | ExpresionMult
+
+   29 ExpresionMult: ExpresionMult OperadorMult ExpresionSuma
+   30              | Termino
+
+   31 OperadorRelacional: OPREL
+
+   32 OperadorSuma: OPARISU
+
+   33 OperadorMult: OPARIMUL
+
+   34 Termino: '(' Expresion ')'
+   35        | ID
+   36        | NUM
+   37        | FUNCION ID '(' ID ')'
+
+   38 DeclaracionSeleccion: SI '(' ExpresionCondicion ')' ENTONCES ListaDeclaracionesCondicionadas
+   39                     | SI '(' ExpresionCondicion ')' ENTONCES ListaDeclaracionesCondicionadas SINO ListaDeclaracionesCondicionadas
+
+   40 DeclaracionIteracion: MIENTRAS '(' ExpresionCondicion ')' HAGA ListaDeclaracionesCondicionadas
+   41                     | HAGA ListaDeclaracionesCondicionadas MIENTRAS Expresion
+
+   42 DeclaracionEtiqueta: ETIQUETA ID NEWLINE
+
+   43 DeclaracionSaltoEtiqueta: IR ID NEWLINE
+
+   44 DeclaracionImprimir: IMPRIMIR ID NEWLINE
+
+   45 DeclaracionLeerCaracterDePantalla: LEER ID NEWLINE
+
+   46 DeclaracionDocumentacion: '/' DeclaracionAutor
+   47                         | DeclaracionVersion
+   48                         | DeclaracionParametro
+   49                         | DeclaracionFecha
+   50                         | DeclaracionExplicacion '*'
+
+   51 DeclaracionAutor: '@' AUTOR ID
+
+   52 DeclaracionVersion: '@' VERSION ID
+
+   53 DeclaracionParametro: '@' PARAMETRO ID
+
+   54 DeclaracionFecha: '@' FECHA ID
+
+   55 DeclaracionExplicacion: '@' EXPLICACION SUBEXPLICACION
+
+
+Terminales con las reglas donde aparecen
+
+$end (0) 0
+'(' (40) 7 8 34 37 38 39 40
+')' (41) 7 8 34 37 38 39 40
+'*' (42) 50
+'/' (47) 46
+'=' (61) 22
+'@' (64) 51 52 53 54 55
+'{' (123) 7 8 13
+'}' (125) 7 8 13
+error (256) 2
+DECLARAR (258) 9
+NEWLINE (259) 2 9 14 22 42 43 44 45
+SI (260) 38 39
+ENTONCES (261) 38 39
+SINO (262) 39
+HAGA (263) 40 41
+ETIQUETA (264) 42
+IR (265) 43
+IMPRIMIR (266) 44
+ID (267) 7 8 9 22 35 37 42 43 44 45 51 52 53 54
+NUM (268) 36
+OPREL (269) 31
+MIENTRAS (270) 40 41
+OPARISU (271) 32
+LEER (272) 45
+OPARIMUL (273) 33
+BOOL (274) 24
+FUNCION (275) 7 8 37
+AUTOR (276) 51
+VERSION (277) 52
+PARAMETRO (278) 53
+FECHA (279) 54
+COMENTARIO (280)
+EXPLICACION (281) 55
+SUBEXPLICACION (282) 55
+RETORNAR (283) 7 8
+
+
+No terminales con las reglas donde aparecen
+
+$accept (37)
+    en la izquierda: 0
+Programa (38)
+    en la izquierda: 1 2, en la derecha: 0
+ListaVariables (39)
+    en la izquierda: 3 4, en la derecha: 1 5 7 8
+ListaVariablesPrima (40)
+    en la izquierda: 5 6, en la derecha: 3 4
+ListaFunciones (41)
+    en la izquierda: 7 8, en la derecha: 1
+DeclaracionVariable (42)
+    en la izquierda: 9, en la derecha: 5 6
+ListaDeclaraciones (43)
+    en la izquierda: 10 11, en la derecha: 1 10 13
+ListaDeclaracionesCondicionadas (44)
+    en la izquierda: 12 13, en la derecha: 38 39 40 41
+Declaracion (45)
+    en la izquierda: 14, en la derecha: 10 11 12
+DeclaracionPrima (46)
+    en la izquierda: 15 16 17 18 19 20 21, en la derecha: 14
+DeclaracionAsignacion (47)
+    en la izquierda: 22, en la derecha: 7 8 15
+ExpresionCondicion (48)
+    en la izquierda: 23 24, en la derecha: 38 39 40
+Expresion (49)
+    en la izquierda: 25 26, en la derecha: 22 23 34 41
+ExpresionSuma (50)
+    en la izquierda: 27 28, en la derecha: 25 26 27 29
+ExpresionMult (51)
+    en la izquierda: 29 30, en la derecha: 28 29
+OperadorRelacional (52)
+    en la izquierda: 31, en la derecha: 25
+OperadorSuma (53)
+    en la izquierda: 32, en la derecha: 27
+OperadorMult (54)
+    en la izquierda: 33, en la derecha: 29
+Termino (55)
+    en la izquierda: 34 35 36 37, en la derecha: 27 30
+DeclaracionSeleccion (56)
+    en la izquierda: 38 39, en la derecha: 16
+DeclaracionIteracion (57)
+    en la izquierda: 40 41, en la derecha: 17
+DeclaracionEtiqueta (58)
+    en la izquierda: 42, en la derecha: 18
+DeclaracionSaltoEtiqueta (59)
+    en la izquierda: 43, en la derecha: 19
+DeclaracionImprimir (60)
+    en la izquierda: 44, en la derecha: 20
+DeclaracionLeerCaracterDePantalla (61)
+    en la izquierda: 45, en la derecha: 21
+DeclaracionDocumentacion (62)
+    en la izquierda: 46 47 48 49 50, en la derecha: 3 7
+DeclaracionAutor (63)
+    en la izquierda: 51, en la derecha: 46
+DeclaracionVersion (64)
+    en la izquierda: 52, en la derecha: 47
+DeclaracionParametro (65)
+    en la izquierda: 53, en la derecha: 48
+DeclaracionFecha (66)
+    en la izquierda: 54, en la derecha: 49
+DeclaracionExplicacion (67)
+    en la izquierda: 55, en la derecha: 50
+
+
+estado 0
+
+    0 $accept: . Programa $end
+
+    error     desplazar e ir al estado 1
+    DECLARAR  desplazar e ir al estado 2
+    '/'       desplazar e ir al estado 3
+    '@'       desplazar e ir al estado 4
+
+    Programa                  ir al estado 5
+    ListaVariables            ir al estado 6
+    ListaVariablesPrima       ir al estado 7
+    DeclaracionVariable       ir al estado 8
+    DeclaracionDocumentacion  ir al estado 9
+    DeclaracionVersion        ir al estado 10
+    DeclaracionParametro      ir al estado 11
+    DeclaracionFecha          ir al estado 12
+    DeclaracionExplicacion    ir al estado 13
+
+
+estado 1
+
+    2 Programa: error . NEWLINE
+
+    NEWLINE  desplazar e ir al estado 14
+
+
+estado 2
+
+    9 DeclaracionVariable: DECLARAR . ID NEWLINE
+
+    ID  desplazar e ir al estado 15
+
+
+estado 3
+
+   46 DeclaracionDocumentacion: '/' . DeclaracionAutor
+
+    '@'  desplazar e ir al estado 16
+
+    DeclaracionAutor  ir al estado 17
+
+
+estado 4
+
+   52 DeclaracionVersion: '@' . VERSION ID
+   53 DeclaracionParametro: '@' . PARAMETRO ID
+   54 DeclaracionFecha: '@' . FECHA ID
+   55 DeclaracionExplicacion: '@' . EXPLICACION SUBEXPLICACION
+
+    VERSION      desplazar e ir al estado 18
+    PARAMETRO    desplazar e ir al estado 19
+    FECHA        desplazar e ir al estado 20
+    EXPLICACION  desplazar e ir al estado 21
+
+
+estado 5
+
+    0 $accept: Programa . $end
+
+    $end  desplazar e ir al estado 22
+
+
+estado 6
+
+    1 Programa: ListaVariables . ListaFunciones ListaDeclaraciones
+    5 ListaVariablesPrima: ListaVariables . DeclaracionVariable
+
+    DECLARAR  desplazar e ir al estado 2
+    FUNCION   desplazar e ir al estado 23
+    '/'       desplazar e ir al estado 3
+    '@'       desplazar e ir al estado 4
+
+    ListaFunciones            ir al estado 24
+    DeclaracionVariable       ir al estado 25
+    DeclaracionDocumentacion  ir al estado 26
+    DeclaracionVersion        ir al estado 10
+    DeclaracionParametro      ir al estado 11
+    DeclaracionFecha          ir al estado 12
+    DeclaracionExplicacion    ir al estado 13
+
+
+estado 7
+
+    4 ListaVariables: ListaVariablesPrima .
+
+    $default  reduce usando la regla 4 (ListaVariables)
+
+
+estado 8
+
+    6 ListaVariablesPrima: DeclaracionVariable .
+
+    $default  reduce usando la regla 6 (ListaVariablesPrima)
+
+
+estado 9
+
+    3 ListaVariables: DeclaracionDocumentacion . ListaVariablesPrima
+
+    DECLARAR  desplazar e ir al estado 2
+    '/'       desplazar e ir al estado 3
+    '@'       desplazar e ir al estado 4
+
+    ListaVariables            ir al estado 27
+    ListaVariablesPrima       ir al estado 28
+    DeclaracionVariable       ir al estado 8
+    DeclaracionDocumentacion  ir al estado 9
+    DeclaracionVersion        ir al estado 10
+    DeclaracionParametro      ir al estado 11
+    DeclaracionFecha          ir al estado 12
+    DeclaracionExplicacion    ir al estado 13
+
+
+estado 10
+
+   47 DeclaracionDocumentacion: DeclaracionVersion .
+
+    $default  reduce usando la regla 47 (DeclaracionDocumentacion)
+
+
+estado 11
+
+   48 DeclaracionDocumentacion: DeclaracionParametro .
+
+    $default  reduce usando la regla 48 (DeclaracionDocumentacion)
+
+
+estado 12
+
+   49 DeclaracionDocumentacion: DeclaracionFecha .
+
+    $default  reduce usando la regla 49 (DeclaracionDocumentacion)
+
+
+estado 13
+
+   50 DeclaracionDocumentacion: DeclaracionExplicacion . '*'
+
+    '*'  desplazar e ir al estado 29
+
+
+estado 14
+
+    2 Programa: error NEWLINE .
+
+    $default  reduce usando la regla 2 (Programa)
+
+
+estado 15
+
+    9 DeclaracionVariable: DECLARAR ID . NEWLINE
+
+    NEWLINE  desplazar e ir al estado 30
+
+
+estado 16
+
+   51 DeclaracionAutor: '@' . AUTOR ID
+
+    AUTOR  desplazar e ir al estado 31
+
+
+estado 17
+
+   46 DeclaracionDocumentacion: '/' DeclaracionAutor .
+
+    $default  reduce usando la regla 46 (DeclaracionDocumentacion)
+
+
+estado 18
+
+   52 DeclaracionVersion: '@' VERSION . ID
+
+    ID  desplazar e ir al estado 32
+
+
+estado 19
+
+   53 DeclaracionParametro: '@' PARAMETRO . ID
+
+    ID  desplazar e ir al estado 33
+
+
+estado 20
+
+   54 DeclaracionFecha: '@' FECHA . ID
+
+    ID  desplazar e ir al estado 34
+
+
+estado 21
+
+   55 DeclaracionExplicacion: '@' EXPLICACION . SUBEXPLICACION
+
+    SUBEXPLICACION  desplazar e ir al estado 35
+
+
+estado 22
+
+    0 $accept: Programa $end .
+
+    $default  aceptar
+
+
+estado 23
+
+    8 ListaFunciones: FUNCION . ID '(' ID ')' '{' ListaVariables DeclaracionAsignacion RETORNAR ID '}'
+
+    ID  desplazar e ir al estado 36
+
+
+estado 24
+
+    1 Programa: ListaVariables ListaFunciones . ListaDeclaraciones
+
+    SI        desplazar e ir al estado 37
+    HAGA      desplazar e ir al estado 38
+    ETIQUETA  desplazar e ir al estado 39
+    IR        desplazar e ir al estado 40
+    IMPRIMIR  desplazar e ir al estado 41
+    ID        desplazar e ir al estado 42
+    MIENTRAS  desplazar e ir al estado 43
+    LEER      desplazar e ir al estado 44
+
+    ListaDeclaraciones                 ir al estado 45
+    Declaracion                        ir al estado 46
+    DeclaracionPrima                   ir al estado 47
+    DeclaracionAsignacion              ir al estado 48
+    DeclaracionSeleccion               ir al estado 49
+    DeclaracionIteracion               ir al estado 50
+    DeclaracionEtiqueta                ir al estado 51
+    DeclaracionSaltoEtiqueta           ir al estado 52
+    DeclaracionImprimir                ir al estado 53
+    DeclaracionLeerCaracterDePantalla  ir al estado 54
+
+
+estado 25
+
+    5 ListaVariablesPrima: ListaVariables DeclaracionVariable .
+
+    $default  reduce usando la regla 5 (ListaVariablesPrima)
+
+
+estado 26
+
+    7 ListaFunciones: DeclaracionDocumentacion . FUNCION ID '(' ID ')' '{' ListaVariables DeclaracionAsignacion RETORNAR ID '}'
+
+    FUNCION  desplazar e ir al estado 55
+
+
+estado 27
+
+    5 ListaVariablesPrima: ListaVariables . DeclaracionVariable
+
+    DECLARAR  desplazar e ir al estado 2
+
+    DeclaracionVariable  ir al estado 25
+
+
+estado 28
+
+    3 ListaVariables: DeclaracionDocumentacion ListaVariablesPrima .
+    4               | ListaVariablesPrima .
+
+    DECLARAR  reduce usando la regla 3 (ListaVariables)
+    DECLARAR  [reduce usando la regla 4 (ListaVariables)]
+    $default  reduce usando la regla 3 (ListaVariables)
+
+
+estado 29
+
+   50 DeclaracionDocumentacion: DeclaracionExplicacion '*' .
+
+    $default  reduce usando la regla 50 (DeclaracionDocumentacion)
+
+
+estado 30
+
+    9 DeclaracionVariable: DECLARAR ID NEWLINE .
+
+    $default  reduce usando la regla 9 (DeclaracionVariable)
+
+
+estado 31
+
+   51 DeclaracionAutor: '@' AUTOR . ID
+
+    ID  desplazar e ir al estado 56
+
+
+estado 32
+
+   52 DeclaracionVersion: '@' VERSION ID .
+
+    $default  reduce usando la regla 52 (DeclaracionVersion)
+
+
+estado 33
+
+   53 DeclaracionParametro: '@' PARAMETRO ID .
+
+    $default  reduce usando la regla 53 (DeclaracionParametro)
+
+
+estado 34
+
+   54 DeclaracionFecha: '@' FECHA ID .
+
+    $default  reduce usando la regla 54 (DeclaracionFecha)
+
+
+estado 35
+
+   55 DeclaracionExplicacion: '@' EXPLICACION SUBEXPLICACION .
+
+    $default  reduce usando la regla 55 (DeclaracionExplicacion)
+
+
+estado 36
+
+    8 ListaFunciones: FUNCION ID . '(' ID ')' '{' ListaVariables DeclaracionAsignacion RETORNAR ID '}'
+
+    '('  desplazar e ir al estado 57
+
+
+estado 37
+
+   38 DeclaracionSeleccion: SI . '(' ExpresionCondicion ')' ENTONCES ListaDeclaracionesCondicionadas
+   39                     | SI . '(' ExpresionCondicion ')' ENTONCES ListaDeclaracionesCondicionadas SINO ListaDeclaracionesCondicionadas
+
+    '('  desplazar e ir al estado 58
+
+
+estado 38
+
+   41 DeclaracionIteracion: HAGA . ListaDeclaracionesCondicionadas MIENTRAS Expresion
+
+    SI        desplazar e ir al estado 37
+    HAGA      desplazar e ir al estado 38
+    ETIQUETA  desplazar e ir al estado 39
+    IR        desplazar e ir al estado 40
+    IMPRIMIR  desplazar e ir al estado 41
+    ID        desplazar e ir al estado 42
+    MIENTRAS  desplazar e ir al estado 43
+    LEER      desplazar e ir al estado 44
+    '{'       desplazar e ir al estado 59
+
+    ListaDeclaracionesCondicionadas    ir al estado 60
+    Declaracion                        ir al estado 61
+    DeclaracionPrima                   ir al estado 47
+    DeclaracionAsignacion              ir al estado 48
+    DeclaracionSeleccion               ir al estado 49
+    DeclaracionIteracion               ir al estado 50
+    DeclaracionEtiqueta                ir al estado 51
+    DeclaracionSaltoEtiqueta           ir al estado 52
+    DeclaracionImprimir                ir al estado 53
+    DeclaracionLeerCaracterDePantalla  ir al estado 54
+
+
+estado 39
+
+   42 DeclaracionEtiqueta: ETIQUETA . ID NEWLINE
+
+    ID  desplazar e ir al estado 62
+
+
+estado 40
+
+   43 DeclaracionSaltoEtiqueta: IR . ID NEWLINE
+
+    ID  desplazar e ir al estado 63
+
+
+estado 41
+
+   44 DeclaracionImprimir: IMPRIMIR . ID NEWLINE
+
+    ID  desplazar e ir al estado 64
+
+
+estado 42
+
+   22 DeclaracionAsignacion: ID . '=' Expresion NEWLINE
+
+    '='  desplazar e ir al estado 65
+
+
+estado 43
+
+   40 DeclaracionIteracion: MIENTRAS . '(' ExpresionCondicion ')' HAGA ListaDeclaracionesCondicionadas
+
+    '('  desplazar e ir al estado 66
+
+
+estado 44
+
+   45 DeclaracionLeerCaracterDePantalla: LEER . ID NEWLINE
+
+    ID  desplazar e ir al estado 67
+
+
+estado 45
+
+    1 Programa: ListaVariables ListaFunciones ListaDeclaraciones .
+   10 ListaDeclaraciones: ListaDeclaraciones . Declaracion
+
+    SI        desplazar e ir al estado 37
+    HAGA      desplazar e ir al estado 38
+    ETIQUETA  desplazar e ir al estado 39
+    IR        desplazar e ir al estado 40
+    IMPRIMIR  desplazar e ir al estado 41
+    ID        desplazar e ir al estado 42
+    MIENTRAS  desplazar e ir al estado 43
+    LEER      desplazar e ir al estado 44
+
+    $default  reduce usando la regla 1 (Programa)
+
+    Declaracion                        ir al estado 68
+    DeclaracionPrima                   ir al estado 47
+    DeclaracionAsignacion              ir al estado 48
+    DeclaracionSeleccion               ir al estado 49
+    DeclaracionIteracion               ir al estado 50
+    DeclaracionEtiqueta                ir al estado 51
+    DeclaracionSaltoEtiqueta           ir al estado 52
+    DeclaracionImprimir                ir al estado 53
+    DeclaracionLeerCaracterDePantalla  ir al estado 54
+
+
+estado 46
+
+   11 ListaDeclaraciones: Declaracion .
+
+    $default  reduce usando la regla 11 (ListaDeclaraciones)
+
+
+estado 47
+
+   14 Declaracion: DeclaracionPrima . NEWLINE
+
+    NEWLINE  desplazar e ir al estado 69
+
+
+estado 48
+
+   15 DeclaracionPrima: DeclaracionAsignacion .
+
+    $default  reduce usando la regla 15 (DeclaracionPrima)
+
+
+estado 49
+
+   16 DeclaracionPrima: DeclaracionSeleccion .
+
+    $default  reduce usando la regla 16 (DeclaracionPrima)
+
+
+estado 50
+
+   17 DeclaracionPrima: DeclaracionIteracion .
+
+    $default  reduce usando la regla 17 (DeclaracionPrima)
+
+
+estado 51
+
+   18 DeclaracionPrima: DeclaracionEtiqueta .
+
+    $default  reduce usando la regla 18 (DeclaracionPrima)
+
+
+estado 52
+
+   19 DeclaracionPrima: DeclaracionSaltoEtiqueta .
+
+    $default  reduce usando la regla 19 (DeclaracionPrima)
+
+
+estado 53
+
+   20 DeclaracionPrima: DeclaracionImprimir .
+
+    $default  reduce usando la regla 20 (DeclaracionPrima)
+
+
+estado 54
+
+   21 DeclaracionPrima: DeclaracionLeerCaracterDePantalla .
+
+    $default  reduce usando la regla 21 (DeclaracionPrima)
+
+
+estado 55
+
+    7 ListaFunciones: DeclaracionDocumentacion FUNCION . ID '(' ID ')' '{' ListaVariables DeclaracionAsignacion RETORNAR ID '}'
+
+    ID  desplazar e ir al estado 70
+
+
+estado 56
+
+   51 DeclaracionAutor: '@' AUTOR ID .
+
+    $default  reduce usando la regla 51 (DeclaracionAutor)
+
+
+estado 57
+
+    8 ListaFunciones: FUNCION ID '(' . ID ')' '{' ListaVariables DeclaracionAsignacion RETORNAR ID '}'
+
+    ID  desplazar e ir al estado 71
+
+
+estado 58
+
+   38 DeclaracionSeleccion: SI '(' . ExpresionCondicion ')' ENTONCES ListaDeclaracionesCondicionadas
+   39                     | SI '(' . ExpresionCondicion ')' ENTONCES ListaDeclaracionesCondicionadas SINO ListaDeclaracionesCondicionadas
+
+    ID       desplazar e ir al estado 72
+    NUM      desplazar e ir al estado 73
+    BOOL     desplazar e ir al estado 74
+    FUNCION  desplazar e ir al estado 75
+    '('      desplazar e ir al estado 76
+
+    ExpresionCondicion  ir al estado 77
+    Expresion           ir al estado 78
+    ExpresionSuma       ir al estado 79
+    ExpresionMult       ir al estado 80
+    Termino             ir al estado 81
+
+
+estado 59
+
+   13 ListaDeclaracionesCondicionadas: '{' . ListaDeclaraciones '}'
+
+    SI        desplazar e ir al estado 37
+    HAGA      desplazar e ir al estado 38
+    ETIQUETA  desplazar e ir al estado 39
+    IR        desplazar e ir al estado 40
+    IMPRIMIR  desplazar e ir al estado 41
+    ID        desplazar e ir al estado 42
+    MIENTRAS  desplazar e ir al estado 43
+    LEER      desplazar e ir al estado 44
+
+    ListaDeclaraciones                 ir al estado 82
+    Declaracion                        ir al estado 46
+    DeclaracionPrima                   ir al estado 47
+    DeclaracionAsignacion              ir al estado 48
+    DeclaracionSeleccion               ir al estado 49
+    DeclaracionIteracion               ir al estado 50
+    DeclaracionEtiqueta                ir al estado 51
+    DeclaracionSaltoEtiqueta           ir al estado 52
+    DeclaracionImprimir                ir al estado 53
+    DeclaracionLeerCaracterDePantalla  ir al estado 54
+
+
+estado 60
+
+   41 DeclaracionIteracion: HAGA ListaDeclaracionesCondicionadas . MIENTRAS Expresion
+
+    MIENTRAS  desplazar e ir al estado 83
+
+
+estado 61
+
+   12 ListaDeclaracionesCondicionadas: Declaracion .
+
+    $default  reduce usando la regla 12 (ListaDeclaracionesCondicionadas)
+
+
+estado 62
+
+   42 DeclaracionEtiqueta: ETIQUETA ID . NEWLINE
+
+    NEWLINE  desplazar e ir al estado 84
+
+
+estado 63
+
+   43 DeclaracionSaltoEtiqueta: IR ID . NEWLINE
+
+    NEWLINE  desplazar e ir al estado 85
+
+
+estado 64
+
+   44 DeclaracionImprimir: IMPRIMIR ID . NEWLINE
+
+    NEWLINE  desplazar e ir al estado 86
+
+
+estado 65
+
+   22 DeclaracionAsignacion: ID '=' . Expresion NEWLINE
+
+    ID       desplazar e ir al estado 72
+    NUM      desplazar e ir al estado 73
+    FUNCION  desplazar e ir al estado 75
+    '('      desplazar e ir al estado 76
+
+    Expresion      ir al estado 87
+    ExpresionSuma  ir al estado 79
+    ExpresionMult  ir al estado 80
+    Termino        ir al estado 81
+
+
+estado 66
+
+   40 DeclaracionIteracion: MIENTRAS '(' . ExpresionCondicion ')' HAGA ListaDeclaracionesCondicionadas
+
+    ID       desplazar e ir al estado 72
+    NUM      desplazar e ir al estado 73
+    BOOL     desplazar e ir al estado 74
+    FUNCION  desplazar e ir al estado 75
+    '('      desplazar e ir al estado 76
+
+    ExpresionCondicion  ir al estado 88
+    Expresion           ir al estado 78
+    ExpresionSuma       ir al estado 79
+    ExpresionMult       ir al estado 80
+    Termino             ir al estado 81
+
+
+estado 67
+
+   45 DeclaracionLeerCaracterDePantalla: LEER ID . NEWLINE
+
+    NEWLINE  desplazar e ir al estado 89
+
+
+estado 68
+
+   10 ListaDeclaraciones: ListaDeclaraciones Declaracion .
+
+    $default  reduce usando la regla 10 (ListaDeclaraciones)
+
+
+estado 69
+
+   14 Declaracion: DeclaracionPrima NEWLINE .
+
+    $default  reduce usando la regla 14 (Declaracion)
+
+
+estado 70
+
+    7 ListaFunciones: DeclaracionDocumentacion FUNCION ID . '(' ID ')' '{' ListaVariables DeclaracionAsignacion RETORNAR ID '}'
+
+    '('  desplazar e ir al estado 90
+
+
+estado 71
+
+    8 ListaFunciones: FUNCION ID '(' ID . ')' '{' ListaVariables DeclaracionAsignacion RETORNAR ID '}'
+
+    ')'  desplazar e ir al estado 91
+
+
+estado 72
+
+   35 Termino: ID .
+
+    $default  reduce usando la regla 35 (Termino)
+
+
+estado 73
+
+   36 Termino: NUM .
+
+    $default  reduce usando la regla 36 (Termino)
+
+
+estado 74
+
+   24 ExpresionCondicion: BOOL .
+
+    $default  reduce usando la regla 24 (ExpresionCondicion)
+
+
+estado 75
+
+   37 Termino: FUNCION . ID '(' ID ')'
+
+    ID  desplazar e ir al estado 92
+
+
+estado 76
+
+   34 Termino: '(' . Expresion ')'
+
+    ID       desplazar e ir al estado 72
+    NUM      desplazar e ir al estado 73
+    FUNCION  desplazar e ir al estado 75
+    '('      desplazar e ir al estado 76
+
+    Expresion      ir al estado 93
+    ExpresionSuma  ir al estado 79
+    ExpresionMult  ir al estado 80
+    Termino        ir al estado 81
+
+
+estado 77
+
+   38 DeclaracionSeleccion: SI '(' ExpresionCondicion . ')' ENTONCES ListaDeclaracionesCondicionadas
+   39                     | SI '(' ExpresionCondicion . ')' ENTONCES ListaDeclaracionesCondicionadas SINO ListaDeclaracionesCondicionadas
+
+    ')'  desplazar e ir al estado 94
+
+
+estado 78
+
+   23 ExpresionCondicion: Expresion .
+
+    $default  reduce usando la regla 23 (ExpresionCondicion)
+
+
+estado 79
+
+   25 Expresion: ExpresionSuma . OperadorRelacional ExpresionSuma
+   26          | ExpresionSuma .
+   27 ExpresionSuma: ExpresionSuma . OperadorSuma Termino
+
+    OPREL    desplazar e ir al estado 95
+    OPARISU  desplazar e ir al estado 96
+
+    $default  reduce usando la regla 26 (Expresion)
+
+    OperadorRelacional  ir al estado 97
+    OperadorSuma        ir al estado 98
+
+
+estado 80
+
+   28 ExpresionSuma: ExpresionMult .
+   29 ExpresionMult: ExpresionMult . OperadorMult ExpresionSuma
+
+    OPARIMUL  desplazar e ir al estado 99
+
+    OPARIMUL  [reduce usando la regla 28 (ExpresionSuma)]
+    $default  reduce usando la regla 28 (ExpresionSuma)
+
+    OperadorMult  ir al estado 100
+
+
+estado 81
+
+   30 ExpresionMult: Termino .
+
+    $default  reduce usando la regla 30 (ExpresionMult)
+
+
+estado 82
+
+   10 ListaDeclaraciones: ListaDeclaraciones . Declaracion
+   13 ListaDeclaracionesCondicionadas: '{' ListaDeclaraciones . '}'
+
+    SI        desplazar e ir al estado 37
+    HAGA      desplazar e ir al estado 38
+    ETIQUETA  desplazar e ir al estado 39
+    IR        desplazar e ir al estado 40
+    IMPRIMIR  desplazar e ir al estado 41
+    ID        desplazar e ir al estado 42
+    MIENTRAS  desplazar e ir al estado 43
+    LEER      desplazar e ir al estado 44
+    '}'       desplazar e ir al estado 101
+
+    Declaracion                        ir al estado 68
+    DeclaracionPrima                   ir al estado 47
+    DeclaracionAsignacion              ir al estado 48
+    DeclaracionSeleccion               ir al estado 49
+    DeclaracionIteracion               ir al estado 50
+    DeclaracionEtiqueta                ir al estado 51
+    DeclaracionSaltoEtiqueta           ir al estado 52
+    DeclaracionImprimir                ir al estado 53
+    DeclaracionLeerCaracterDePantalla  ir al estado 54
+
+
+estado 83
+
+   41 DeclaracionIteracion: HAGA ListaDeclaracionesCondicionadas MIENTRAS . Expresion
+
+    ID       desplazar e ir al estado 72
+    NUM      desplazar e ir al estado 73
+    FUNCION  desplazar e ir al estado 75
+    '('      desplazar e ir al estado 76
+
+    Expresion      ir al estado 102
+    ExpresionSuma  ir al estado 79
+    ExpresionMult  ir al estado 80
+    Termino        ir al estado 81
+
+
+estado 84
+
+   42 DeclaracionEtiqueta: ETIQUETA ID NEWLINE .
+
+    $default  reduce usando la regla 42 (DeclaracionEtiqueta)
+
+
+estado 85
+
+   43 DeclaracionSaltoEtiqueta: IR ID NEWLINE .
+
+    $default  reduce usando la regla 43 (DeclaracionSaltoEtiqueta)
+
+
+estado 86
+
+   44 DeclaracionImprimir: IMPRIMIR ID NEWLINE .
+
+    $default  reduce usando la regla 44 (DeclaracionImprimir)
+
+
+estado 87
+
+   22 DeclaracionAsignacion: ID '=' Expresion . NEWLINE
+
+    NEWLINE  desplazar e ir al estado 103
+
+
+estado 88
+
+   40 DeclaracionIteracion: MIENTRAS '(' ExpresionCondicion . ')' HAGA ListaDeclaracionesCondicionadas
+
+    ')'  desplazar e ir al estado 104
+
+
+estado 89
+
+   45 DeclaracionLeerCaracterDePantalla: LEER ID NEWLINE .
+
+    $default  reduce usando la regla 45 (DeclaracionLeerCaracterDePantalla)
+
+
+estado 90
+
+    7 ListaFunciones: DeclaracionDocumentacion FUNCION ID '(' . ID ')' '{' ListaVariables DeclaracionAsignacion RETORNAR ID '}'
+
+    ID  desplazar e ir al estado 105
+
+
+estado 91
+
+    8 ListaFunciones: FUNCION ID '(' ID ')' . '{' ListaVariables DeclaracionAsignacion RETORNAR ID '}'
+
+    '{'  desplazar e ir al estado 106
+
+
+estado 92
+
+   37 Termino: FUNCION ID . '(' ID ')'
+
+    '('  desplazar e ir al estado 107
+
+
+estado 93
+
+   34 Termino: '(' Expresion . ')'
+
+    ')'  desplazar e ir al estado 108
+
+
+estado 94
+
+   38 DeclaracionSeleccion: SI '(' ExpresionCondicion ')' . ENTONCES ListaDeclaracionesCondicionadas
+   39                     | SI '(' ExpresionCondicion ')' . ENTONCES ListaDeclaracionesCondicionadas SINO ListaDeclaracionesCondicionadas
+
+    ENTONCES  desplazar e ir al estado 109
+
+
+estado 95
+
+   31 OperadorRelacional: OPREL .
+
+    $default  reduce usando la regla 31 (OperadorRelacional)
+
+
+estado 96
+
+   32 OperadorSuma: OPARISU .
+
+    $default  reduce usando la regla 32 (OperadorSuma)
+
+
+estado 97
+
+   25 Expresion: ExpresionSuma OperadorRelacional . ExpresionSuma
+
+    ID       desplazar e ir al estado 72
+    NUM      desplazar e ir al estado 73
+    FUNCION  desplazar e ir al estado 75
+    '('      desplazar e ir al estado 76
+
+    ExpresionSuma  ir al estado 110
+    ExpresionMult  ir al estado 80
+    Termino        ir al estado 81
+
+
+estado 98
+
+   27 ExpresionSuma: ExpresionSuma OperadorSuma . Termino
+
+    ID       desplazar e ir al estado 72
+    NUM      desplazar e ir al estado 73
+    FUNCION  desplazar e ir al estado 75
+    '('      desplazar e ir al estado 76
+
+    Termino  ir al estado 111
+
+
+estado 99
+
+   33 OperadorMult: OPARIMUL .
+
+    $default  reduce usando la regla 33 (OperadorMult)
+
+
+estado 100
+
+   29 ExpresionMult: ExpresionMult OperadorMult . ExpresionSuma
+
+    ID       desplazar e ir al estado 72
+    NUM      desplazar e ir al estado 73
+    FUNCION  desplazar e ir al estado 75
+    '('      desplazar e ir al estado 76
+
+    ExpresionSuma  ir al estado 112
+    ExpresionMult  ir al estado 80
+    Termino        ir al estado 81
+
+
+estado 101
+
+   13 ListaDeclaracionesCondicionadas: '{' ListaDeclaraciones '}' .
+
+    $default  reduce usando la regla 13 (ListaDeclaracionesCondicionadas)
+
+
+estado 102
+
+   41 DeclaracionIteracion: HAGA ListaDeclaracionesCondicionadas MIENTRAS Expresion .
+
+    $default  reduce usando la regla 41 (DeclaracionIteracion)
+
+
+estado 103
+
+   22 DeclaracionAsignacion: ID '=' Expresion NEWLINE .
+
+    $default  reduce usando la regla 22 (DeclaracionAsignacion)
+
+
+estado 104
+
+   40 DeclaracionIteracion: MIENTRAS '(' ExpresionCondicion ')' . HAGA ListaDeclaracionesCondicionadas
+
+    HAGA  desplazar e ir al estado 113
+
+
+estado 105
+
+    7 ListaFunciones: DeclaracionDocumentacion FUNCION ID '(' ID . ')' '{' ListaVariables DeclaracionAsignacion RETORNAR ID '}'
+
+    ')'  desplazar e ir al estado 114
+
+
+estado 106
+
+    8 ListaFunciones: FUNCION ID '(' ID ')' '{' . ListaVariables DeclaracionAsignacion RETORNAR ID '}'
+
+    DECLARAR  desplazar e ir al estado 2
+    '/'       desplazar e ir al estado 3
+    '@'       desplazar e ir al estado 4
+
+    ListaVariables            ir al estado 115
+    ListaVariablesPrima       ir al estado 7
+    DeclaracionVariable       ir al estado 8
+    DeclaracionDocumentacion  ir al estado 9
+    DeclaracionVersion        ir al estado 10
+    DeclaracionParametro      ir al estado 11
+    DeclaracionFecha          ir al estado 12
+    DeclaracionExplicacion    ir al estado 13
+
+
+estado 107
+
+   37 Termino: FUNCION ID '(' . ID ')'
+
+    ID  desplazar e ir al estado 116
+
+
+estado 108
+
+   34 Termino: '(' Expresion ')' .
+
+    $default  reduce usando la regla 34 (Termino)
+
+
+estado 109
+
+   38 DeclaracionSeleccion: SI '(' ExpresionCondicion ')' ENTONCES . ListaDeclaracionesCondicionadas
+   39                     | SI '(' ExpresionCondicion ')' ENTONCES . ListaDeclaracionesCondicionadas SINO ListaDeclaracionesCondicionadas
+
+    SI        desplazar e ir al estado 37
+    HAGA      desplazar e ir al estado 38
+    ETIQUETA  desplazar e ir al estado 39
+    IR        desplazar e ir al estado 40
+    IMPRIMIR  desplazar e ir al estado 41
+    ID        desplazar e ir al estado 42
+    MIENTRAS  desplazar e ir al estado 43
+    LEER      desplazar e ir al estado 44
+    '{'       desplazar e ir al estado 59
+
+    ListaDeclaracionesCondicionadas    ir al estado 117
+    Declaracion                        ir al estado 61
+    DeclaracionPrima                   ir al estado 47
+    DeclaracionAsignacion              ir al estado 48
+    DeclaracionSeleccion               ir al estado 49
+    DeclaracionIteracion               ir al estado 50
+    DeclaracionEtiqueta                ir al estado 51
+    DeclaracionSaltoEtiqueta           ir al estado 52
+    DeclaracionImprimir                ir al estado 53
+    DeclaracionLeerCaracterDePantalla  ir al estado 54
+
+
+estado 110
+
+   25 Expresion: ExpresionSuma OperadorRelacional ExpresionSuma .
+   27 ExpresionSuma: ExpresionSuma . OperadorSuma Termino
+
+    OPARISU  desplazar e ir al estado 96
+
+    $default  reduce usando la regla 25 (Expresion)
+
+    OperadorSuma  ir al estado 98
+
+
+estado 111
+
+   27 ExpresionSuma: ExpresionSuma OperadorSuma Termino .
+
+    $default  reduce usando la regla 27 (ExpresionSuma)
+
+
+estado 112
+
+   27 ExpresionSuma: ExpresionSuma . OperadorSuma Termino
+   29 ExpresionMult: ExpresionMult OperadorMult ExpresionSuma .
+
+    OPARISU  desplazar e ir al estado 96
+
+    OPARISU   [reduce usando la regla 29 (ExpresionMult)]
+    $default  reduce usando la regla 29 (ExpresionMult)
+
+    OperadorSuma  ir al estado 98
+
+
+estado 113
+
+   40 DeclaracionIteracion: MIENTRAS '(' ExpresionCondicion ')' HAGA . ListaDeclaracionesCondicionadas
+
+    SI        desplazar e ir al estado 37
+    HAGA      desplazar e ir al estado 38
+    ETIQUETA  desplazar e ir al estado 39
+    IR        desplazar e ir al estado 40
+    IMPRIMIR  desplazar e ir al estado 41
+    ID        desplazar e ir al estado 42
+    MIENTRAS  desplazar e ir al estado 43
+    LEER      desplazar e ir al estado 44
+    '{'       desplazar e ir al estado 59
+
+    ListaDeclaracionesCondicionadas    ir al estado 118
+    Declaracion                        ir al estado 61
+    DeclaracionPrima                   ir al estado 47
+    DeclaracionAsignacion              ir al estado 48
+    DeclaracionSeleccion               ir al estado 49
+    DeclaracionIteracion               ir al estado 50
+    DeclaracionEtiqueta                ir al estado 51
+    DeclaracionSaltoEtiqueta           ir al estado 52
+    DeclaracionImprimir                ir al estado 53
+    DeclaracionLeerCaracterDePantalla  ir al estado 54
+
+
+estado 114
+
+    7 ListaFunciones: DeclaracionDocumentacion FUNCION ID '(' ID ')' . '{' ListaVariables DeclaracionAsignacion RETORNAR ID '}'
+
+    '{'  desplazar e ir al estado 119
+
+
+estado 115
+
+    5 ListaVariablesPrima: ListaVariables . DeclaracionVariable
+    8 ListaFunciones: FUNCION ID '(' ID ')' '{' ListaVariables . DeclaracionAsignacion RETORNAR ID '}'
+
+    DECLARAR  desplazar e ir al estado 2
+    ID        desplazar e ir al estado 42
+
+    DeclaracionVariable    ir al estado 25
+    DeclaracionAsignacion  ir al estado 120
+
+
+estado 116
+
+   37 Termino: FUNCION ID '(' ID . ')'
+
+    ')'  desplazar e ir al estado 121
+
+
+estado 117
+
+   38 DeclaracionSeleccion: SI '(' ExpresionCondicion ')' ENTONCES ListaDeclaracionesCondicionadas .
+   39                     | SI '(' ExpresionCondicion ')' ENTONCES ListaDeclaracionesCondicionadas . SINO ListaDeclaracionesCondicionadas
+
+    SINO  desplazar e ir al estado 122
+
+    $default  reduce usando la regla 38 (DeclaracionSeleccion)
+
+
+estado 118
+
+   40 DeclaracionIteracion: MIENTRAS '(' ExpresionCondicion ')' HAGA ListaDeclaracionesCondicionadas .
+
+    $default  reduce usando la regla 40 (DeclaracionIteracion)
+
+
+estado 119
+
+    7 ListaFunciones: DeclaracionDocumentacion FUNCION ID '(' ID ')' '{' . ListaVariables DeclaracionAsignacion RETORNAR ID '}'
+
+    DECLARAR  desplazar e ir al estado 2
+    '/'       desplazar e ir al estado 3
+    '@'       desplazar e ir al estado 4
+
+    ListaVariables            ir al estado 123
+    ListaVariablesPrima       ir al estado 7
+    DeclaracionVariable       ir al estado 8
+    DeclaracionDocumentacion  ir al estado 9
+    DeclaracionVersion        ir al estado 10
+    DeclaracionParametro      ir al estado 11
+    DeclaracionFecha          ir al estado 12
+    DeclaracionExplicacion    ir al estado 13
+
+
+estado 120
+
+    8 ListaFunciones: FUNCION ID '(' ID ')' '{' ListaVariables DeclaracionAsignacion . RETORNAR ID '}'
+
+    RETORNAR  desplazar e ir al estado 124
+
+
+estado 121
+
+   37 Termino: FUNCION ID '(' ID ')' .
+
+    $default  reduce usando la regla 37 (Termino)
+
+
+estado 122
+
+   39 DeclaracionSeleccion: SI '(' ExpresionCondicion ')' ENTONCES ListaDeclaracionesCondicionadas SINO . ListaDeclaracionesCondicionadas
+
+    SI        desplazar e ir al estado 37
+    HAGA      desplazar e ir al estado 38
+    ETIQUETA  desplazar e ir al estado 39
+    IR        desplazar e ir al estado 40
+    IMPRIMIR  desplazar e ir al estado 41
+    ID        desplazar e ir al estado 42
+    MIENTRAS  desplazar e ir al estado 43
+    LEER      desplazar e ir al estado 44
+    '{'       desplazar e ir al estado 59
+
+    ListaDeclaracionesCondicionadas    ir al estado 125
+    Declaracion                        ir al estado 61
+    DeclaracionPrima                   ir al estado 47
+    DeclaracionAsignacion              ir al estado 48
+    DeclaracionSeleccion               ir al estado 49
+    DeclaracionIteracion               ir al estado 50
+    DeclaracionEtiqueta                ir al estado 51
+    DeclaracionSaltoEtiqueta           ir al estado 52
+    DeclaracionImprimir                ir al estado 53
+    DeclaracionLeerCaracterDePantalla  ir al estado 54
+
+
+estado 123
+
+    5 ListaVariablesPrima: ListaVariables . DeclaracionVariable
+    7 ListaFunciones: DeclaracionDocumentacion FUNCION ID '(' ID ')' '{' ListaVariables . DeclaracionAsignacion RETORNAR ID '}'
+
+    DECLARAR  desplazar e ir al estado 2
+    ID        desplazar e ir al estado 42
+
+    DeclaracionVariable    ir al estado 25
+    DeclaracionAsignacion  ir al estado 126
+
+
+estado 124
+
+    8 ListaFunciones: FUNCION ID '(' ID ')' '{' ListaVariables DeclaracionAsignacion RETORNAR . ID '}'
+
+    ID  desplazar e ir al estado 127
+
+
+estado 125
+
+   39 DeclaracionSeleccion: SI '(' ExpresionCondicion ')' ENTONCES ListaDeclaracionesCondicionadas SINO ListaDeclaracionesCondicionadas .
+
+    $default  reduce usando la regla 39 (DeclaracionSeleccion)
+
+
+estado 126
+
+    7 ListaFunciones: DeclaracionDocumentacion FUNCION ID '(' ID ')' '{' ListaVariables DeclaracionAsignacion . RETORNAR ID '}'
+
+    RETORNAR  desplazar e ir al estado 128
+
+
+estado 127
+
+    8 ListaFunciones: FUNCION ID '(' ID ')' '{' ListaVariables DeclaracionAsignacion RETORNAR ID . '}'
+
+    '}'  desplazar e ir al estado 129
+
+
+estado 128
+
+    7 ListaFunciones: DeclaracionDocumentacion FUNCION ID '(' ID ')' '{' ListaVariables DeclaracionAsignacion RETORNAR . ID '}'
+
+    ID  desplazar e ir al estado 130
+
+
+estado 129
+
+    8 ListaFunciones: FUNCION ID '(' ID ')' '{' ListaVariables DeclaracionAsignacion RETORNAR ID '}' .
+
+    $default  reduce usando la regla 8 (ListaFunciones)
+
+
+estado 130
+
+    7 ListaFunciones: DeclaracionDocumentacion FUNCION ID '(' ID ')' '{' ListaVariables DeclaracionAsignacion RETORNAR ID . '}'
+
+    '}'  desplazar e ir al estado 131
+
+
+estado 131
+
+    7 ListaFunciones: DeclaracionDocumentacion FUNCION ID '(' ID ')' '{' ListaVariables DeclaracionAsignacion RETORNAR ID '}' .
+
+    $default  reduce usando la regla 7 (ListaFunciones)

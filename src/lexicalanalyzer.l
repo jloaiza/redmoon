@@ -1,13 +1,19 @@
 %{
 	#include "y.tab.h"
+	
 	/* comentario ([a-zA-Z0-9]|\*|_|\n)* */
 	/* {comentario} {printf("COMENTARIO:%s ",yytext);return(COMENTARIO);} */
 	/* subexplicacion ({ws}|\n|{id})* */
 	/* {subexplicacion} {printf("SUBEXPLICACION:%s ",yytext);return (SUBEXPLICACION);} */
+	
 	/*Definicion de los tokens
 	ESPACIO, DECLARAR, NEWLINE, SI, ENTONCES, SINO, HAGA, 
 	ETIQUETA, IR, IMPRIMIR, ID, NUM, OPREL, OPARI, BOOL, FUNCION,
 	AUTOR, VERSION, PARAMETRO, FECHA, EXPLICACION */
+
+	int _lineNumber = 1;
+
+	void setLineNumber();
 %}
 
 /*Definicion de las expresiones regulares*/
@@ -22,7 +28,7 @@ otro .
 %%
 
 {ws} {printf("ESPACIO:%s ",yytext);}
-newline {printf("NUEVA LINEA:%s ",yytext);return(NEWLINE);}
+\n {printf("NUEVA LINEA: /n ");setLineNumber();return(NEWLINE);}
 declarar {printf("DECLARAR:%s ",yytext);return (DECLARAR);}
 funcion {printf("FUNCION:%s ",yytext);return(FUNCION);}
 true {printf("TRUE:%s ",yytext);return(BOOL);}
@@ -56,3 +62,9 @@ imprimir {printf("IMPRIMIR:%s ",yytext);return(IMPRIMIR);}
 "/" {printf("DIVISION:%s ",yytext);return(OPARIMUL);}
 {otro} {printf("Otro:%s ", yytext);return(yytext[0]);}
 %%
+
+void setLineNumber()
+{
+	_lineNumber++;
+	setErrorLineNumber(_lineNumber);
+}
