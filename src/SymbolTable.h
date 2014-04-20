@@ -1,29 +1,33 @@
 #ifndef SYMBOL_TABLE
 #define SYMBOL_TABLE
 
-struct symbol;
-typedef struct symbol Symbol;
-
 #include "Symbol.h"
 #include "Node.h"
 
-typedef struct symbol_table SymbolTable;
+struct symbol;
+typedef struct symbol Symbol;
 
-extern const int NUMBER;
-extern const int ID;
-extern const int TAG;
+typedef struct symbol_table SymbolTable;
 
 struct symbol_table {
 	Node* head;
 };
 
-void initTable(SymbolTable* pTable);
-void freeTable(SymbolTable* pTable);
-void addSymbolToTable(Symbol* pSymbol, SymbolTable* pTable);
-void newNumberSymbol(SymbolTable* pTable, int pNum);
-void newIDSymbol(SymbolTable* pTable, char* pName);
-Symbol* newSymbol(SymbolTable* pTable);
-Symbol* searchNumberSymbol(SymbolTable* pTable, int pNum);
-Symbol* searchIDSymbol(SymbolTable* pTable, char* pID);
+extern const int NUMBER;
+extern const int VARIABLE;
+extern const int FUNCTION;
+extern const int TAG;
+
+int symbolCount;
+
+SymbolTable* symbolTable;
+
+void initTable();
+void freeTable();
+void addSymbolToTable(Symbol* pSymbol);
+Symbol* newNumberSymbol(int pNum);
+Symbol* newIDSymbol(char* pName);
+Symbol* newSymbol();
+void saveSymbolTable();
 
 #endif

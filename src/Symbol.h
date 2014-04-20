@@ -1,23 +1,24 @@
 #ifndef SYMBOL
 #define SYMBOL
 
+#include "SymbolTable.h"
+
 struct symbol_table;
 typedef struct symbol_table SymbolTable;
-
-#include "SymbolTable.h"
 
 typedef struct symbol Symbol;
 
 struct symbol{
 	int type;
 	int value;
-	int scope;
+	int block;
 	int isDeclarated;
 	int isInitialized;
 	int isUsed;
 	char* name;
 	int declarationLine;	
-	int parameter;
+	Symbol* parameter;
+	Symbol* function;
 };
 
 void initSymbol(Symbol* pSymbol);
